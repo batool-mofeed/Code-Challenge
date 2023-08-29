@@ -1,4 +1,4 @@
-package com.batool.codechallenge.app.main
+package com.batool.codechallenge.app.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

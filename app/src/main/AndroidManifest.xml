@@ -12,7 +12,7 @@
         android:theme="@style/Theme.CodeChallenge"
         tools:targetApi="31">
         <activity
-            android:name=".app.main.MainActivity"
+            android:name=".app.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
