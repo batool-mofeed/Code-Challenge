@@ -1,6 +1,7 @@
 package com.batool.codechallenge.app.base
 
 import androidx.lifecycle.ViewModel
+import com.batool.codechallenge.app.util.resource.ResourceProvider
 import com.batool.codechallenge.data.datasource.local.preferences.PreferencesManager
 import com.batool.codechallenge.data.repositories.GeneralRepository
 import javax.inject.Inject
@@ -15,6 +16,9 @@ abstract class BaseViewModel : ViewModel() {
 
     @Inject
     lateinit var preferencesManager: PreferencesManager
+
+    @Inject
+    lateinit var resourceProvider: ResourceProvider
 
     fun getLanguage(): String {
         return preferencesManager.getLanguage()

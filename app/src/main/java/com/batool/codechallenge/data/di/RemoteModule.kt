@@ -33,6 +33,12 @@ object RemoteModule {
 
     @Singleton
     @Provides
+    fun provideInnerInterceptor() : HttpLoggingInterceptor = HttpLoggingInterceptor().also {
+        it.level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    @Singleton
+    @Provides
     fun provideOkHttpClient(
         interceptor: HttpLoggingInterceptor,
         apiInterceptor: ApiInterceptor

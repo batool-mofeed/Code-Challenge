@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.batool.codechallenge.app.ui.auth.register.RegisterViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/body_lyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/name_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@drawable/bg_input_fields"
+                    android:hint="@string/full_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:padding="@dimen/_6sdp"
+                    android:text="@={viewModel.name}"
+                    android:textColor="@color/black" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:maxLines="1"
+                    android:text="@{viewModel.nameError}"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="@{viewModel.nameError.isEmpty()? View.GONE:View.VISIBLE}"
+                    tools:text="sssssssss" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/id_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@drawable/bg_input_fields"
+                    android:hint="@string/id_label"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:padding="@dimen/_6sdp"
+                    android:text="@={viewModel.id}"
+                    android:textColor="@color/black" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:maxLines="1"
+                    android:text="@{viewModel.idError}"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="@{viewModel.idError.isEmpty()? View.GONE:View.VISIBLE}"
+                    tools:text="sssssssss" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/email_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@drawable/bg_input_fields"
+                    android:hint="@string/email_label"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:padding="@dimen/_6sdp"
+                    android:text="@={viewModel.email}"
+                    android:textColor="@color/black" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:maxLines="1"
+                    android:text="@{viewModel.emailError}"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="@{viewModel.emailError.isEmpty()? View.GONE:View.VISIBLE}"
+                    tools:text="sssssssss" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@drawable/bg_input_fields"
+                    android:backgroundTint="@null"
+                    android:orientation="horizontal">
+
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/ccp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="0dp"
+                        app:ccpDialog_backgroundColor="@color/white"
+                        app:ccpDialog_cornerRadius="@dimen/_10sdp"
+                        app:ccpDialog_showCloseIcon="true"
+                        app:ccpDialog_showTitle="false"
+                        app:ccpDialog_textColor="@color/black"
+                        app:ccp_arrowColor="@color/black"
+                        app:ccp_autoDetectCountry="true"
+                        app:ccp_autoDetectLanguage="true"
+                        app:ccp_contentColor="@color/black"
+                        app:ccp_defaultPhoneCode="962"
+                        app:ccp_excludedCountries="IL"
+                        app:ccp_showFlag="true"
+                        app:ccp_showNameCode="false"
+                        app:ccp_textGravity="CENTER"
+                        app:ccp_textSize="@dimen/_10ssp"
+                        app:countryCode="@{viewModel.ccp}" />
+
+                    <!--suppress AndroidUnknownAttribute -->
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:hint="@string/phone_number_label"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:padding="@dimen/_4sdp"
+                        android:singleLine="true"
+                        android:text="@={viewModel.phone}"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10ssp"
+                        tools:ignore="RtlCompat" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:maxLines="1"
+                    android:text="@{viewModel.phoneError}"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="@{viewModel.phoneError.isEmpty()? View.GONE:View.VISIBLE}"
+                    tools:text="sssssssss" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/dob_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/bg_input_fields"
+                    android:hint="@string/dob_label"
+                    android:imeOptions="actionDone"
+                    android:inputType="date"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:padding="@dimen/_6sdp"
+                    android:text="@={viewModel.dob}"
+                    android:textColor="@color/black" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:maxLines="1"
+                    android:text="@{viewModel.dobError}"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="@{viewModel.dobError.isEmpty()? View.GONE:View.VISIBLE}"
+                    tools:text="sssssssss" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/password_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/bg_input_fields"
+                    android:hint="@string/password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:padding="@dimen/_6sdp"
+                    android:text="@={viewModel.password}"
+                    android:textColor="@color/black" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:maxLines="1"
+                    android:text="@{viewModel.passwordError}"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="@{viewModel.passwordError.isEmpty()? View.GONE:View.VISIBLE}"
+                    tools:text="sssssssss" />
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/create_account_btn"
+                    android:layout_width="180dp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_35sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_35sdp"
+                    android:background="@drawable/bg_input_fields"
+                    android:onClick="@{(v)->viewModel.createAccount()}"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:text="@string/register_label"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+</layout>

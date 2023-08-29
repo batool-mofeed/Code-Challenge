@@ -1,14 +1,17 @@
 package com.batool.codechallenge.app.ui.splash
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseActivity
+import com.batool.codechallenge.app.ui.auth.AuthActivity
 import com.batool.codechallenge.databinding.ActivitySplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
@@ -26,7 +29,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 //                startActivity(MainActivity.getIntent(this))
             } else {
                 //Go to registration
-//                startActivity(AuthActivity.getIntent(this))
+                startActivity(AuthActivity.getIntent(this))
+                finish()
             }
         }, 2500)
     }

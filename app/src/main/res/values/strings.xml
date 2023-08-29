@@ -3,4 +3,28 @@
 
     <!--    dialog_progress-->
     <string name="please_wait_label">Please wait…</string>
+
+    <!--    activity_auth-->
+    <string name="join_us_label">Join us</string>
+    <string name="register_label">Register</string>
+    <string name="login_label">Login</string>
+
+    <!--    fragment_register-->
+    <string name="create_account_label">Create Account</string>
+    <string name="full_name">Full name</string>
+    <string name="id_label">National ID</string>
+    <string name="email_label">Email</string>
+    <string name="phone_number_label">Phone Number</string>
+    <string name="dob_label">Date of Birth</string>
+    <string name="password">Password</string>
+    <string name="name_required">Name required</string>
+    <string name="id_required">National ID required</string>
+    <string name="email_invalid">Invalid email</string>
+    <string name="email_required">Email required</string>
+    <string name="phone_invalid">Invalid Phone</string>
+    <string name="phone_required">Phone required</string>
+    <string name="dob_required">Date of birth required</string>
+    <string name="password_required">Password required</string>
+
+    <!--    fragment_login-->
 </resources>

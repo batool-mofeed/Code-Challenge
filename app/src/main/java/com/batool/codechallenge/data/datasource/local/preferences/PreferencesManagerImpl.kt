@@ -1,7 +1,7 @@
 package com.batool.codechallenge.data.datasource.local.preferences
 
 import android.content.Context
-import com.batool.codechallenge.data.model.UserDTO
+import com.batool.codechallenge.data.model.User
 import com.nedaluof.mihawk.MiHawk
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -17,11 +17,11 @@ class PreferencesManagerImpl @Inject constructor(
         MiHawk.init(context)
     }
 
-    override fun setUser(userDTO: UserDTO) {
+    override fun setUser(userDTO: User) {
         MiHawk.put(PreferencesKeys.USER_KEY, userDTO)
     }
 
-    override fun getUser(): UserDTO? = MiHawk.get<UserDTO>(PreferencesKeys.USER_KEY)
+    override fun getUser(): User? = MiHawk.get<User>(PreferencesKeys.USER_KEY)
 
     override fun getLanguage() = MiHawk.get(PreferencesKeys.LANGUAGE, "en")
 

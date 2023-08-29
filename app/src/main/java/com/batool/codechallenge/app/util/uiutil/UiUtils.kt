@@ -5,6 +5,9 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.batool.codechallenge.R
 
 /**
@@ -22,4 +25,15 @@ fun Context.toast(stringId: Int) {
 
 fun Context.toast(string: String) {
     Toast.makeText(this, string, Toast.LENGTH_LONG).show()
+}
+
+fun FragmentManager.replaceFragment(
+    fragment: Fragment,
+    frameId: Int
+) {
+    this.beginTransaction()
+        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        .replace(frameId, fragment)
+        .addToBackStack(null)
+        .commit()
 }
