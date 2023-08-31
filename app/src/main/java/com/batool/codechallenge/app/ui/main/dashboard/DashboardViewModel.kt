@@ -46,7 +46,7 @@ class DashboardViewModel @Inject constructor(
                         val dateTime = LocalDateTime.parse(it.updated, formatter)
                         it.calculatedDate = dateTime.differenceToNow()
                         it
-                    } ?: emptyList())
+                    }?.sortedByDescending { it.updated })
                 }
             }
         }
@@ -91,9 +91,9 @@ class DashboardViewModel @Inject constructor(
         }
         if (hours != 0L) {
             humanTime += if (hours > 1) {
-                "$hours ${resourceProvider.provideString(R.string.hours)}"
+                " $hours ${resourceProvider.provideString(R.string.hours)}"
             } else {
-                "$hours ${resourceProvider.provideString(R.string.hour)}"
+                " $hours ${resourceProvider.provideString(R.string.hour)}"
             }
         }
         humanTime += " ${resourceProvider.provideString(R.string.ago)}"
