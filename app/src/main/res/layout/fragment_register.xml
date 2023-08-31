@@ -241,7 +241,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:maxLines="1"
                     android:text="@{viewModel.passwordError}"
                     android:textColor="@color/red"
                     android:textSize="@dimen/_10ssp"
@@ -271,11 +270,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:maxLines="1"
                     android:text="@{viewModel.confirmPasswordError}"
                     android:textColor="@color/red"
                     android:textSize="@dimen/_10ssp"
-                    android:visibility="@{viewModel.passwordError.isEmpty()? View.GONE:View.VISIBLE}"
+                    android:visibility="@{viewModel.confirmPasswordError.isEmpty()? View.GONE:View.VISIBLE}"
                     tools:text="sssssssss" />
 
                 <androidx.appcompat.widget.AppCompatButton

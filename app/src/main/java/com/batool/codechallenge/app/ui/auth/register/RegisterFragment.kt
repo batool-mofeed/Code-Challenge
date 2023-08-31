@@ -1,11 +1,14 @@
 package com.batool.codechallenge.app.ui.auth.register
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import com.batool.codechallenge.BR
 import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseFragment
+import com.batool.codechallenge.app.ui.main.MainActivity
 import com.batool.codechallenge.app.util.customviews.showDatePickerDialog
 import com.batool.codechallenge.app.util.uiutil.click
 import com.batool.codechallenge.databinding.FragmentRegisterBinding
@@ -19,14 +22,27 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     private val registerViewModel by viewModels<RegisterViewModel>()
     override fun getViewModel() = registerViewModel
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initClicks()
+        observeViewModel()
     }
 
-    private fun initClicks(){
-        with(binding){
-            dobEdt.click{
+    private fun observeViewModel() {
+        with(registerViewModel) {
+            createAccountSuccess.collectFlow {
+                if (it) {
+                    startActivity(MainActivity.getIntent(requireActivity()))
+                }
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun initClicks() {
+        with(binding) {
+            dobEdt.click {
                 requireActivity().showDatePickerDialog({ viewDate, date ->
                     registerViewModel.setDateOfBirth(viewDate, date)
                 }
@@ -37,7 +53,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         }
     }
 
-    companion object{
+    companion object {
         fun newInstance(
         ) = RegisterFragment()
     }

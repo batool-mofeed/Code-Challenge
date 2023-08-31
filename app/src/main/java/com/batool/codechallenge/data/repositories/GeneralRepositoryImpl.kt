@@ -3,6 +3,7 @@ package com.batool.codechallenge.data.repositories
 import android.content.Context
 import com.batool.codechallenge.data.datasource.local.preferences.PreferencesManager
 import com.batool.codechallenge.data.datasource.remote.GeneralApiServices
+import com.batool.codechallenge.data.model.User
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -17,4 +18,7 @@ class GeneralRepositoryImpl @Inject constructor(
 
     override fun isThereUser() = preferences.getUser() != null
 
+    override fun saveUser(user: User) {
+        preferences.setUser(user)
+    }
 }

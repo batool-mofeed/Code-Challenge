@@ -7,7 +7,7 @@ import com.batool.codechallenge.data.model.User
  **/
 interface PreferencesManager {
 
-    fun setUser(userDTO: User)
+    fun setUser(user: User)
     fun getUser(): User?
 
     fun getLanguage(): String

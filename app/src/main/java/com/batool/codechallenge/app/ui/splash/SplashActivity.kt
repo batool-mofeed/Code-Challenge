@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseActivity
 import com.batool.codechallenge.app.ui.auth.AuthActivity
+import com.batool.codechallenge.app.ui.main.MainActivity
 import com.batool.codechallenge.databinding.ActivitySplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +27,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         Handler(Looper.getMainLooper()).postDelayed({
             if (splashViewModel.isThereUser()) {
                 //Go to dashboard
-//                startActivity(MainActivity.getIntent(this))
+                startActivity(MainActivity.getIntent(this))
             } else {
                 //Go to registration
                 startActivity(AuthActivity.getIntent(this))

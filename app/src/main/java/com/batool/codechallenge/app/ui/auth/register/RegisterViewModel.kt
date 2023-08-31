@@ -8,12 +8,14 @@ import com.batool.codechallenge.app.util.isValidEmail
 import com.batool.codechallenge.app.util.uiutil.isValidPassword
 import com.batool.codechallenge.app.util.validatePhoneNumber
 import com.batool.codechallenge.data.model.User
+import com.batool.codechallenge.domain.usecases.GeneralUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
+    private val generalUseCases: GeneralUseCases
 ) : BaseViewModel() {
 
     val createAccountSuccess = MutableStateFlow(false)
@@ -109,7 +111,7 @@ class RegisterViewModel @Inject constructor(
 
     fun createAccount() {
         if (validateFields()) {
-            preferencesManager.setUser(
+            generalUseCases.saveUser(
                 User(
                     id.value.toString(),
                     email.value.toString(),

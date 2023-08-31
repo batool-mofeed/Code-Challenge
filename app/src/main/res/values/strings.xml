@@ -32,4 +32,10 @@
     <string name="weak_password">Weak password! The password field must contain at least one capital letter, one number, one symbol and at least 8 characters.</string>
 
     <!--    fragment_login-->
+
+
+    <!--    activity_main-->
+    <string name="dashboard_label">Dashboard</string>
+    <string name="more_label">More</string>
+
 </resources>

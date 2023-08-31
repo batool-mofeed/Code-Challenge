@@ -2,6 +2,8 @@ package com.batool.codechallenge.app.util.customviews
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -11,6 +13,7 @@ import java.util.*
 /**
  * Created By Batool Mofeed on 8/31/2023.
  **/
+@RequiresApi(Build.VERSION_CODES.O)
 fun Context.showDatePickerDialog(
     onDateReady: (String, String) -> Unit,
     dateLessThanEighteen: () -> Unit
