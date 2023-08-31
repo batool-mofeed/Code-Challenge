@@ -162,6 +162,7 @@
                         android:background="@color/transparent"
                         android:hint="@string/phone_number_label"
                         android:inputType="phone"
+                        android:imeOptions="actionNext"
                         android:maxLines="1"
                         android:padding="@dimen/_4sdp"
                         android:singleLine="true"
@@ -185,23 +186,25 @@
                     android:visibility="@{viewModel.phoneError.isEmpty()? View.GONE:View.VISIBLE}"
                     tools:text="sssssssss" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/dob_edt"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:background="@drawable/bg_input_fields"
                     android:hint="@string/dob_label"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionNext"
                     android:inputType="date"
                     android:lines="1"
                     android:maxLines="1"
                     android:padding="@dimen/_6sdp"
                     android:text="@={viewModel.dob}"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -225,7 +228,7 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:background="@drawable/bg_input_fields"
                     android:hint="@string/password"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionNext"
                     android:inputType="textPassword"
                     android:lines="1"
                     android:maxLines="1"
@@ -245,6 +248,35 @@
                     android:visibility="@{viewModel.passwordError.isEmpty()? View.GONE:View.VISIBLE}"
                     tools:text="sssssssss" />
 
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/confirm_password_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/bg_input_fields"
+                    android:hint="@string/confirm_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:padding="@dimen/_6sdp"
+                    android:text="@={viewModel.confirmPassword}"
+                    android:textColor="@color/black" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:maxLines="1"
+                    android:text="@{viewModel.confirmPasswordError}"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="@{viewModel.passwordError.isEmpty()? View.GONE:View.VISIBLE}"
+                    tools:text="sssssssss" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/create_account_btn"

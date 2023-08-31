@@ -17,6 +17,8 @@
     <string name="phone_number_label">Phone Number</string>
     <string name="dob_label">Date of Birth</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+
     <string name="name_required">Name required</string>
     <string name="id_required">National ID required</string>
     <string name="email_invalid">Invalid email</string>
@@ -25,6 +27,9 @@
     <string name="phone_required">Phone required</string>
     <string name="dob_required">Date of birth required</string>
     <string name="password_required">Password required</string>
+    <string name="password_not_match">Passwords are not match</string>
+    <string name="age_validation_message">Privacy policy prohibits anybody under 18 from registering for the app.</string>
+    <string name="weak_password">Weak password! The password field must contain at least one capital letter, one number, one symbol and at least 8 characters.</string>
 
     <!--    fragment_login-->
 </resources>

@@ -4,11 +4,14 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.batool.codechallenge.R
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 /**
  * Created By Batool Mofeed on 8/29/2023.
@@ -36,4 +39,26 @@ fun FragmentManager.replaceFragment(
         .replace(frameId, fragment)
         .addToBackStack(null)
         .commit()
+}
+
+fun View.click(block: () -> Unit) {
+    setOnClickListener { block() }
+}
+
+fun isValidPassword(password: String?): Boolean {
+    val pattern: Pattern
+    val PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@*#$%^&+=])(?=\\S+$).{8,}$"
+    pattern = Pattern.compile(PASSWORD_PATTERN)
+    val matcher: Matcher = pattern.matcher(password)
+    return matcher.matches()
+}
+
+fun String.isProbablyArabic(): Boolean {
+    var i = 0
+    while (i < this.length) {
+        val c = this.codePointAt(i)
+        if (c in 0x0600..0x06E0) return true
+        i += Character.charCount(c)
+    }
+    return false
 }

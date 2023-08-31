@@ -6,6 +6,8 @@ import androidx.fragment.app.viewModels
 import com.batool.codechallenge.BR
 import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseFragment
+import com.batool.codechallenge.app.util.customviews.showDatePickerDialog
+import com.batool.codechallenge.app.util.uiutil.click
 import com.batool.codechallenge.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +21,20 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initClicks()
+    }
+
+    private fun initClicks(){
+        with(binding){
+            dobEdt.click{
+                requireActivity().showDatePickerDialog({ viewDate, date ->
+                    registerViewModel.setDateOfBirth(viewDate, date)
+                }
+                ) {
+                    toast(R.string.age_validation_message)
+                }
+            }
+        }
     }
 
     companion object{

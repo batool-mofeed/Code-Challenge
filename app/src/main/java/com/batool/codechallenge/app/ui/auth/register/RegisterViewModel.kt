@@ -5,6 +5,7 @@ import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseViewModel
 import com.batool.codechallenge.app.util.isPhoneNumberMatchCountryCode
 import com.batool.codechallenge.app.util.isValidEmail
+import com.batool.codechallenge.app.util.uiutil.isValidPassword
 import com.batool.codechallenge.app.util.validatePhoneNumber
 import com.batool.codechallenge.data.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,6 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
 ) : BaseViewModel() {
+
+    val createAccountSuccess = MutableStateFlow(false)
 
     val nameError = MutableLiveData("")
     val name = MutableLiveData("")
@@ -34,102 +37,78 @@ class RegisterViewModel @Inject constructor(
     val passwordError = MutableLiveData("")
     val password = MutableLiveData("")
 
-    private var nameNotEmpty = false
-    private fun validateName() {
+    val confirmPasswordError = MutableLiveData("")
+    val confirmPassword = MutableLiveData("")
+
+    var date = ""
+
+    fun setDateOfBirth(viewDate: String, date: String) {
+        dob.value = viewDate
+        this.date = date
+    }
+
+    private fun invalidateErrors() {
         nameError.value = ""
-        if (id.value.isNullOrEmpty()) {
-            nameNotEmpty = false
-            nameError.value = resourceProvider.provideString(R.string.name_required)
-        }
-    }
-
-    private var idNotEmpty = false
-    private fun validateID() {
         idError.value = ""
-        if (id.value.isNullOrEmpty()) {
-            idNotEmpty = false
-            idError.value = resourceProvider.provideString(R.string.id_required)
-        }
-    }
-
-    private var emailNotEmpty = false
-    private fun validateEmail() {
         emailError.value = ""
-        if (!email.value.isNullOrEmpty()) {
-            if (email.value?.isValidEmail()!!) {
-                emailNotEmpty = true
-            } else {
-                emailNotEmpty = false
-                emailError.value = resourceProvider.provideString(R.string.email_invalid)
-            }
-        } else {
-            emailNotEmpty = false
-            emailError.value = resourceProvider.provideString(R.string.email_required)
-        }
-    }
-
-    private var phoneNotEmpty = false
-    private fun validatePhone() {
         phoneError.value = ""
-        if (!phone.value.isNullOrEmpty()) {
-            if (resourceProvider.provideAppContext().validatePhoneNumber(phone.value!!)) {
-                if (!resourceProvider.provideAppContext().isPhoneNumberMatchCountryCode(
-                        ccp.value.toString(),
-                        (if (phone.value!!.startsWith("0")) phone.value!!.drop(1) else phone.value).toString()
-                    )
-                ) {
-                    phoneNotEmpty = false
-                    phoneError.value = resourceProvider.provideString(R.string.phone_invalid)
-                }
-            } else {
-                phoneNotEmpty = false
-                phoneError.value = resourceProvider.provideString(R.string.phone_invalid)
-            }
-        } else {
-            phoneNotEmpty = false
-            phoneError.value = resourceProvider.provideString(R.string.phone_required)
-        }
-    }
-
-    private var dobNotEmpty = false
-    private fun validateDob() {
         dobError.value = ""
-        if (!dob.value.isNullOrEmpty()) {
-            if (dob.value?.isValidEmail()!!) {
-                dobNotEmpty = true
-            }
-        } else {
-            dobNotEmpty = false
-            dobError.value = resourceProvider.provideString(R.string.dob_required)
-        }
+        passwordError.value = ""
+        confirmPasswordError.value = ""
     }
 
-    private var passwordNotEmpty = false
-    private fun validatePassword() {
-        passwordError.value = ""
-        if (!password.value.isNullOrEmpty()) {
-            if (password.value?.isValidEmail()!!) {
-                passwordNotEmpty = true
-            }
-        } else {
-            passwordNotEmpty = false
-            passwordError.value = resourceProvider.provideString(R.string.password)
+    private fun validateFields(): Boolean {
+
+        invalidateErrors()
+
+        if (name.value.isNullOrEmpty()) {
+            nameError.value = resourceProvider.provideString(R.string.name_required)
+            return false
+        } else if (id.value.isNullOrEmpty()) {
+            idError.value = resourceProvider.provideString(R.string.id_required)
+            return false
+        } else if (email.value.isNullOrEmpty()) {
+            emailError.value = resourceProvider.provideString(R.string.email_required)
+            return false
+        } else if (!email.value?.isValidEmail()!!) {
+            emailError.value = resourceProvider.provideString(R.string.email_invalid)
+            return false
+        } else if (phone.value.isNullOrEmpty()) {
+            phoneError.value = resourceProvider.provideString(R.string.phone_required)
+            return false
+        } else if (!resourceProvider.provideAppContext().validatePhoneNumber(phone.value!!)) {
+            phoneError.value = resourceProvider.provideString(R.string.phone_invalid)
+            return false
+        } else if (!resourceProvider.provideAppContext().isPhoneNumberMatchCountryCode(
+                ccp.value,
+                (if (phone.value!!.startsWith("0")) phone.value!!.drop(1) else phone.value).toString()
+            )
+        ) {
+            phoneError.value = resourceProvider.provideString(R.string.phone_invalid)
+            return false
+        } else if (dob.value.isNullOrEmpty()) {
+            dobError.value = resourceProvider.provideString(R.string.dob_required)
+            return false
+        } else if (password.value.isNullOrEmpty()) {
+            passwordError.value = resourceProvider.provideString(R.string.password_required)
+            return false
+        } else if (confirmPassword.value.isNullOrEmpty()) {
+            confirmPasswordError.value = resourceProvider.provideString(R.string.password_required)
+            return false
+        } else if (password.value != confirmPassword.value) {
+            passwordError.value = resourceProvider.provideString(R.string.password_not_match)
+            confirmPasswordError.value = resourceProvider.provideString(R.string.password_not_match)
+            return false
+        } else if (!isValidPassword(password.value)) {
+            passwordError.value = resourceProvider.provideString(R.string.weak_password)
+            confirmPasswordError.value = resourceProvider.provideString(R.string.weak_password)
+            return false
         }
+        return true
     }
 
     fun createAccount() {
-        validateName()
-        validateID()
-        validateEmail()
-        validatePhone()
-        validateDob()
-        validatePassword()
-        validateAll()
-    }
-
-    val createAccountSuccess = MutableStateFlow(false)
-    private fun validateAll() {
-        if (emailNotEmpty && idNotEmpty && dobNotEmpty && phoneNotEmpty && nameNotEmpty && passwordNotEmpty) {
+        if (validateFields()) {
             preferencesManager.setUser(
                 User(
                     id.value.toString(),
@@ -141,5 +120,6 @@ class RegisterViewModel @Inject constructor(
             createAccountSuccess.value = true
         }
     }
+
 
 }
