@@ -1,4 +1,4 @@
-package com.batool.codechallenge.app.util.uiutil
+package com.batool.codechallenge.app.util.uiutil.bindingadapters
 
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
@@ -6,7 +6,7 @@ import com.hbb20.CountryCodePicker
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
- * Created By Batool Mofeed - Vibes Solutions on 8/29/2023.
+ * Created By Batool Mofeed on 8/29/2023.
  **/
 object CCPBindingAdapters {
     @JvmStatic

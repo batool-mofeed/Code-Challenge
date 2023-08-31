@@ -1,10 +1,13 @@
 package com.batool.codechallenge.data.repositories
 
 import android.content.Context
+import com.batool.codechallenge.BuildConfig
 import com.batool.codechallenge.data.datasource.local.preferences.PreferencesManager
-import com.batool.codechallenge.data.datasource.remote.GeneralApiServices
+import com.batool.codechallenge.data.datasource.remote.api.GeneralApiServices
+import com.batool.codechallenge.data.datasource.remote.responsemodel.ViewedArticlesResponse
 import com.batool.codechallenge.data.model.User
 import dagger.hilt.android.qualifiers.ApplicationContext
+import retrofit2.Response
 import javax.inject.Inject
 
 /**
@@ -20,5 +23,9 @@ class GeneralRepositoryImpl @Inject constructor(
 
     override fun saveUser(user: User) {
         preferences.setUser(user)
+    }
+
+    override suspend fun getViewedArticles(): Response<ViewedArticlesResponse> {
+        return generalApiServices.getViewedArticles(BuildConfig.API_KEY)
     }
 }

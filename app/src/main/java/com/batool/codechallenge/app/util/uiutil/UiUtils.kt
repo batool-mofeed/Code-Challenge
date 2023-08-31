@@ -1,14 +1,20 @@
 package com.batool.codechallenge.app.util.uiutil
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.batool.codechallenge.R
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -53,12 +59,29 @@ fun isValidPassword(password: String?): Boolean {
     return matcher.matches()
 }
 
-fun String.isProbablyArabic(): Boolean {
-    var i = 0
-    while (i < this.length) {
-        val c = this.codePointAt(i)
-        if (c in 0x0600..0x06E0) return true
-        i += Character.charCount(c)
+fun getCircularProgressDrawable(ctx: Context) = CircularProgressDrawable(ctx).apply {
+    strokeWidth = 5f
+    backgroundColor = ContextCompat.getColor(ctx, R.color.black)
+    centerRadius = 30f
+    start()
+}
+
+fun textWatcher(newText: (String) -> Unit) = object : TextWatcher {
+    override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+    override fun onTextChanged(
+        charSequence: CharSequence,
+        start: Int,
+        before: Int,
+        count: Int
+    ) {
     }
-    return false
+
+    override fun afterTextChanged(editable: Editable) {
+        newText(editable.toString())
+    }
+}
+
+fun hideSoftKeyboard(activity: Activity) {
+    val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(activity.currentFocus?.windowToken, 0)
 }

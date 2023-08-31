@@ -21,7 +21,8 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "API_BASE_URL", "\"http://192.168.1.1:8000/\""
+            buildConfigField "String", "API_BASE_URL", "\"https://api.nytimes.com/svc/mostpopular/v2/\""
+            buildConfigField "String" ,"API_KEY" , "\"6kJ833ArzlBoCmYetqxZ1neWqiVPOLCE\""
         }
         release {
             minifyEnabled false
@@ -86,6 +87,9 @@ dependencies {
 
     //phone number validator
     implementation "io.michaelrocks:libphonenumber-android:8.12.52"
+
+    //Image loader
+    implementation "io.coil-kt:coil:2.4.0"
 
 }
 

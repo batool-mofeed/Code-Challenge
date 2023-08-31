@@ -1,7 +1,7 @@
 package com.batool.codechallenge.data.di
 
 import com.batool.codechallenge.BuildConfig
-import com.batool.codechallenge.data.datasource.remote.GeneralApiServices
+import com.batool.codechallenge.data.datasource.remote.api.GeneralApiServices
 import com.batool.codechallenge.data.datasource.remote.utils.ApiInterceptor
 import com.squareup.moshi.Moshi
 import dagger.Module
