@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -51,8 +52,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
             }
             sections.collectFlow {
                 if (it != null) {
-                    initTabsRecyclerView(it.first)
-                    initViewPager(it)
+                    if (it.first.isNotEmpty()) {
+                        initTabsRecyclerView(it.first)
+                        initViewPager(it)
+                    } else {
+                        binding.noSectionsMessage.isVisible = true
+                    }
                 }
             }
         }
