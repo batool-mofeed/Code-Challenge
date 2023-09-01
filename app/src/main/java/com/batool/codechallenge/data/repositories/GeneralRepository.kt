@@ -13,6 +13,8 @@ interface GeneralRepository {
 
     fun saveUser(user: User)
 
+    fun getUser():User?
+
     suspend fun getViewedArticles(): Response<ViewedArticlesResponse>
 
 }

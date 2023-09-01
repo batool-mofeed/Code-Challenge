@@ -2,15 +2,12 @@ package com.batool.codechallenge.domain.usecases
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.batool.codechallenge.R
 import com.batool.codechallenge.data.datasource.remote.responsemodel.ViewedArticlesResponse
 import com.batool.codechallenge.data.model.User
 import com.batool.codechallenge.data.repositories.GeneralRepository
 import com.batool.codechallenge.domain.model.Resource
 import com.batool.codechallenge.domain.usecases.base.BaseRemoteUseCase
 import kotlinx.coroutines.CoroutineScope
-import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
 /**
@@ -22,6 +19,10 @@ class GeneralUseCasesImpl @Inject constructor(
 
     override fun saveUser(user: User) {
         repo.saveUser(user)
+    }
+
+    override fun getUser(): User? {
+        return repo.getUser()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -44,7 +45,6 @@ class GeneralUseCasesImpl @Inject constructor(
             }
         )
     }
-
 
 
 }

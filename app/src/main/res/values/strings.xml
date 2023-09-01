@@ -54,4 +54,10 @@
     <string name="hours">Hours</string>
     <string name="hour">Hour</string>
     <string name="ago">ago</string>
+
+    <!--    fragment_more-->
+    <string name="profile">My Profile</string>
+    <string name="details">Details</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
 </resources>

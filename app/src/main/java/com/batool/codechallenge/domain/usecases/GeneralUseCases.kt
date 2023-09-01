@@ -12,6 +12,8 @@ interface GeneralUseCases {
 
     fun saveUser(user: User)
 
+    fun getUser():User?
+
     fun getViewedArticles(
         scope: CoroutineScope,
         resource: (Resource<ViewedArticlesResponse>) -> Unit

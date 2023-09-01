@@ -114,6 +114,7 @@ class RegisterViewModel @Inject constructor(
             generalUseCases.saveUser(
                 User(
                     id.value.toString(),
+                    name.value.toString(),
                     email.value.toString(),
                     phone.value.toString(),
                     dob.value.toString()

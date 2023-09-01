@@ -23,7 +23,8 @@
             android:layout_margin="@dimen/_16sdp"
             android:text="@string/most_viewed_articles"
             android:textColor="@color/black"
-            android:textSize="@dimen/_15ssp" />
+            android:textSize="@dimen/_17ssp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -113,26 +114,5 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.cardview.widget.CardView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:orientation="vertical"
-            app:items="@{viewModel.articles}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/no_categories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_16sdp"
-            android:text="@string/no_articles"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
-            android:visibility="@{viewModel.articles.isEmpty()?View.VISIBLE:View.GONE}" />
-
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

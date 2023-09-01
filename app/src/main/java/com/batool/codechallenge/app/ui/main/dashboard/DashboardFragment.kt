@@ -25,24 +25,16 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
     private val dashboardViewModel by viewModels<DashboardViewModel>()
     override fun getViewModel() = dashboardViewModel
 
-    private lateinit var articlesAdapter: ArticlesAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initArticlesRecyclerView()
         observeViewModel()
         initSearchViews()
         dashboardViewModel.getViewedArticles()
     }
 
-    private fun initArticlesRecyclerView() {
-        binding.recyclerView.apply {
-            articlesAdapter = ArticlesAdapter { article ->
-            }
-            adapter = articlesAdapter
-        }
-    }
+
 
     private fun observeViewModel() {
         with(dashboardViewModel) {
@@ -72,8 +64,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
             searchEdt.addTextChangedListener(textWatcher {
                 if (it.isEmpty()) {
                     getMainData()
-                    binding.recyclerView.scrollTo(0, 0)
+                    //TODO:Communicator to retrieve main data
+
+//                    binding.recyclerView.scrollTo(0, 0)
                 } else {
+                    //TODO:Communicator to search form pager
                     search()
                 }
             })
@@ -86,17 +81,17 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
     }
 
     private fun search() {
-        articlesAdapter.clearItems()
-        articlesAdapter.addItems(dashboardViewModel.articles.value?.filter {
-            it.title?.lowercase(Locale("en"))?.contains(
-                binding.searchEdt.text.toString()
-                    .lowercase(Locale("en"))
-            ) == true
-        }!!)
+//        articlesAdapter.clearItems()
+//        articlesAdapter.addItems(dashboardViewModel.articles.value?.filter {
+//            it.title?.lowercase(Locale("en"))?.contains(
+//                binding.searchEdt.text.toString()
+//                    .lowercase(Locale("en"))
+//            ) == true
+//        }!!)
     }
 
     private fun getMainData() {
-        articlesAdapter.clearItems()
-        dashboardViewModel.articles.value?.let { it1 -> articlesAdapter.addItems(it1) }
+//        articlesAdapter.clearItems()
+//        dashboardViewModel.articles.value?.let { it1 -> articlesAdapter.addItems(it1) }
     }
 }

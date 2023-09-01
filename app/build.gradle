@@ -91,6 +91,9 @@ dependencies {
     //Image loader
     implementation "io.coil-kt:coil:2.4.0"
 
+    //Circle Image View
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }
 
 kapt {
