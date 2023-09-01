@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -114,5 +115,45 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tabs_recycler"
+                tools:listitem="@layout/item_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <ProgressBar
+                android:id="@+id/sub_categories_progress"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/sub_categories_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/no_sections_label"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13ssp"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_40sdp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

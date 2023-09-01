@@ -2,7 +2,6 @@ package com.batool.codechallenge.app.ui.main.dashboard
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseViewModel
@@ -27,7 +26,10 @@ class DashboardViewModel @Inject constructor(
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage = _errorMessage.asStateFlow()
 
-    val articles = MutableLiveData<List<Article>>()
+    private val _sections: MutableStateFlow<Pair<List<String>, List<List<Article>>>?> =
+        MutableStateFlow(null)
+    val sections = _sections.asStateFlow()
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun getViewedArticles() {
@@ -40,13 +42,19 @@ class DashboardViewModel @Inject constructor(
                     _loading.value = resource.loading
                 }
                 is Resource.Success -> {
-                    articles.postValue(resource.data?.results?.map {
+                    val map = resource.data?.results?.map {
                         val formatter =
                             java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                         val dateTime = LocalDateTime.parse(it.updated, formatter)
                         it.calculatedDate = dateTime.differenceToNow()
                         it
-                    }?.sortedByDescending { it.updated })
+                    }?.groupBy {
+                        it.section
+                    }
+                    _sections.value = Pair(
+                        map?.keys?.filterNotNull()?.toList() ?: emptyList(),
+                        map?.values?.toList() ?: emptyList()
+                    )
                 }
             }
         }

@@ -8,11 +8,16 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.batool.codechallenge.BR
 import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseFragment
+import com.batool.codechallenge.app.ui.main.dashboard.section.SectionPagerAdapter
+import com.batool.codechallenge.app.util.uiutil.CenterSmoothScroller
 import com.batool.codechallenge.app.util.uiutil.hideSoftKeyboard
 import com.batool.codechallenge.app.util.uiutil.textWatcher
+import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
 import com.batool.codechallenge.databinding.FragmentDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -25,15 +30,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
     private val dashboardViewModel by viewModels<DashboardViewModel>()
     override fun getViewModel() = dashboardViewModel
 
+    private lateinit var tabsAdapter: TabsAdapter
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         initSearchViews()
-        dashboardViewModel.getViewedArticles()
     }
-
 
 
     private fun observeViewModel() {
@@ -44,6 +49,44 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
                     toast(it)
                 }
             }
+            sections.collectFlow {
+                if (it != null) {
+                    initTabsRecyclerView(it.first)
+                    initViewPager(it)
+                }
+            }
+        }
+    }
+
+    private fun initViewPager(pair: Pair<List<String>, List<List<Article>>>) {
+        with(binding.viewPager) {
+            val pageAdapter =
+                SectionPagerAdapter(childFragmentManager, lifecycle, pair.first.size, pair.second)
+            this.adapter = pageAdapter
+        }
+    }
+
+    private fun initTabsRecyclerView(tabs: List<String>) {
+        binding.tabsRecycler.apply {
+            tabsAdapter = TabsAdapter { position ->
+                binding.viewPager.setCurrentItem(position, true)
+                adapter!!.notifyDataSetChanged()
+            }.apply {
+                addItems(tabs)
+            }
+            adapter = tabsAdapter
+        }
+    }
+
+    private val viewPagerCallback = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+
+            val smoothScroller: RecyclerView.SmoothScroller = CenterSmoothScroller(context)
+            smoothScroller.targetPosition = position
+            binding.tabsRecycler.layoutManager?.startSmoothScroll(smoothScroller)
+
+            binding.tabsRecycler.findViewHolderForAdapterPosition(position)?.itemView?.performClick()
         }
     }
 
@@ -94,4 +137,17 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
 //        articlesAdapter.clearItems()
 //        dashboardViewModel.articles.value?.let { it1 -> articlesAdapter.addItems(it1) }
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+        binding.viewPager.registerOnPageChangeCallback(viewPagerCallback)
+        dashboardViewModel.getViewedArticles()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.viewPager.unregisterOnPageChangeCallback(viewPagerCallback)
+    }
+
 }
