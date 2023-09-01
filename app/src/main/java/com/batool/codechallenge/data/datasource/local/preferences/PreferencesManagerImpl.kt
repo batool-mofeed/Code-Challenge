@@ -29,7 +29,10 @@ class PreferencesManagerImpl @Inject constructor(
         MiHawk.put(PreferencesKeys.LANGUAGE, lang)
     }
 
-    override fun logoutUser(listOfTopics: (List<String>) -> Unit) {
+    override fun logoutUser(succeeded: () -> Unit) {
+        val language = getLanguage()
         MiHawk.deleteAll {}
+        setLanguage(language)
+        succeeded()
     }
 }

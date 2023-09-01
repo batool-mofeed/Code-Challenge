@@ -13,6 +13,6 @@ interface PreferencesManager {
     fun getLanguage(): String
     fun setLanguage(lang: String)
 
-    fun logoutUser(listOfTopics: (List<String>) -> Unit)
+    fun logoutUser(succeeded:() -> Unit)
 
 }

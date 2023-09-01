@@ -19,6 +19,14 @@ class GeneralRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao
 ) : GeneralRepository {
 
+    override fun setLanguage(lang: String) {
+        preferences.setLanguage(lang)
+    }
+
+    override fun getLanguage(): String {
+      return preferences.getLanguage()
+    }
+
     override fun isThereUser() = preferences.getUser() != null
 
     override fun saveUser(user: User) {
@@ -39,5 +47,11 @@ class GeneralRepositoryImpl @Inject constructor(
 
     override suspend fun getViewedArticles(): Response<ViewedArticlesResponse> {
         return generalApiServices.getViewedArticles(BuildConfig.API_KEY)
+    }
+
+    override fun logoutUserClicked(succeeded: () -> Unit) {
+        preferences.logoutUser {
+            succeeded()
+        }
     }
 }

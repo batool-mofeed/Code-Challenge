@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- dialog_progress -->
+    <string name="please_wait_label">يرجى الانتظار…</string>
+
+    <!-- activity_auth -->
+    <string name="join_us_label">انضم إلينا</string>
+    <string name="register_label">التسجيل</string>
+    <string name="login_label">تسجيل الدخول</string>
+
+    <!-- fragment_register -->
+    <string name="create_account_label">إنشاء حساب</string>
+    <string name="full_name">الاسم الكامل</string>
+    <string name="id_label">الهوية الوطنية</string>
+    <string name="email_label">البريد الإلكتروني</string>
+    <string name="phone_number_label">رقم الهاتف</string>
+    <string name="dob_label">تاريخ الميلاد</string>
+    <string name="password">كلمة المرور</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+
+    <string name="name_required">الاسم مطلوب</string>
+    <string name="id_required">الهوية الوطنية مطلوبة</string>
+    <string name="email_invalid">بريد إلكتروني غير صالح</string>
+    <string name="email_required">البريد الإلكتروني مطلوب</string>
+    <string name="phone_invalid">رقم هاتف غير صالح</string>
+    <string name="phone_required">رقم الهاتف مطلوب</string>
+    <string name="dob_required">تاريخ الميلاد مطلوب</string>
+    <string name="password_required">كلمة المرور مطلوبة</string>
+    <string name="password_not_match">كلمتا المرور غير متطابقتين</string>
+    <string name="age_validation_message">سياسة الخصوصية تمنع أي شخص دون سن 18 من التسجيل في التطبيق.</string>
+    <string name="weak_password">كلمة مرور ضعيفة! يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورقم واحد ورمز واحد وعلى الأقل 8 أحرف.</string>
+
+    <!-- fragment_login -->
+
+    <!-- activity_main -->
+    <string name="dashboard_label">لوحة القيادة</string>
+    <string name="more_label">المزيد</string>
+
+    <!-- fragment_dashboard -->
+    <string name="no_articles">لا توجد مقالات</string>
+    <string name="most_viewed_articles">المقالات الأكثر مشاهدة</string>
+    <string name="sort">ترتيب</string>
+    <string name="search">البحث…</string>
+    <string name="no_sections_label">لا توجد أقسام</string>
+    <string name="years">سنوات</string>
+    <string name="year">سنة</string>
+    <string name="months">شهور</string>
+    <string name="month">شهر</string>
+    <string name="weeks">أسابيع</string>
+    <string name="week">أسبوع</string>
+    <string name="days">أيام</string>
+    <string name="day">يوم</string>
+    <string name="hours">ساعات</string>
+    <string name="hour">ساعة</string>
+    <string name="ago">منذ</string>
+    <string name="no_search_found">لا توجد نتائج بحث</string>
+
+    <!-- fragment_more -->
+    <string name="profile">ملفي الشخصي</string>
+    <string name="details">التفاصيل</string>
+    <string name="settings">الإعدادات</string>
+    <string name="language">اللغة</string>
+    <string name="logout">تسجيل الخروج</string>
+
+</resources>

@@ -1,6 +1,8 @@
 package com.batool.codechallenge.app.ui.splash
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -34,5 +36,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                 finish()
             }
         }, 2500)
+    }
+
+    companion object {
+        fun getIntent(context: Context) = Intent(context, SplashActivity::class.java).also {
+            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        }
     }
 }

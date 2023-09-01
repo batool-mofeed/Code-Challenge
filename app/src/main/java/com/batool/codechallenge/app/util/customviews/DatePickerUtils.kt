@@ -28,7 +28,7 @@ fun Context.showDatePickerDialog(
         { _, yearOfYear, monthOfYear, dayOfMonth ->
             val eighteenYearsAgo = LocalDate.now() - Period.ofYears(18)
             val selectedMonth = monthOfYear + 1
-            val viewDate = "$yearOfYear-$selectedMonth-$dayOfMonth"
+            val viewDate = "$dayOfMonth-$selectedMonth-$yearOfYear"
             val format = SimpleDateFormat("ddMMyyyy")
             val date = format.format(calendar.time)
 

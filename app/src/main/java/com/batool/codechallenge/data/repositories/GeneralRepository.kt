@@ -10,6 +10,10 @@ import retrofit2.Response
  **/
 interface GeneralRepository {
 
+    fun setLanguage(lang:String)
+
+    fun getLanguage():String
+
     fun isThereUser(): Boolean
 
     fun saveUser(user: User)
@@ -21,5 +25,7 @@ interface GeneralRepository {
     fun getSavedArticles(): List<Article>
 
     suspend fun getViewedArticles(): Response<ViewedArticlesResponse>
+
+    fun logoutUserClicked(succeeded:() -> Unit)
 
 }

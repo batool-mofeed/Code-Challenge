@@ -3,7 +3,6 @@ package com.batool.codechallenge.domain.usecases
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
-import com.batool.codechallenge.data.datasource.remote.responsemodel.ViewedArticlesResponse
 import com.batool.codechallenge.data.model.User
 import com.batool.codechallenge.data.repositories.GeneralRepository
 import com.batool.codechallenge.domain.model.Resource
@@ -17,6 +16,10 @@ import javax.inject.Inject
 class GeneralUseCasesImpl @Inject constructor(
     private val repo: GeneralRepository,
 ) : GeneralUseCases, BaseRemoteUseCase() {
+
+    override fun setLanguage(lang: String) {
+        repo.setLanguage(lang)
+    }
 
     override fun saveUser(user: User) {
         repo.saveUser(user)
@@ -60,5 +63,9 @@ class GeneralUseCasesImpl @Inject constructor(
         )
     }
 
-
+    override fun logoutUserClicked(succeeded: () -> Unit) {
+        repo.logoutUserClicked {
+            succeeded()
+        }
+    }
 }
