@@ -2,7 +2,9 @@ package com.batool.codechallenge.data.repositories
 
 import com.batool.codechallenge.BuildConfig
 import com.batool.codechallenge.data.datasource.local.preferences.PreferencesManager
+import com.batool.codechallenge.data.datasource.local.room.dao.ArticleDao
 import com.batool.codechallenge.data.datasource.remote.api.GeneralApiServices
+import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
 import com.batool.codechallenge.data.datasource.remote.responsemodel.ViewedArticlesResponse
 import com.batool.codechallenge.data.model.User
 import retrofit2.Response
@@ -14,6 +16,7 @@ import javax.inject.Inject
 class GeneralRepositoryImpl @Inject constructor(
     private val preferences: PreferencesManager,
     private val generalApiServices: GeneralApiServices,
+    private val articleDao: ArticleDao
 ) : GeneralRepository {
 
     override fun isThereUser() = preferences.getUser() != null
@@ -24,6 +27,14 @@ class GeneralRepositoryImpl @Inject constructor(
 
     override fun getUser(): User? {
         return preferences.getUser()
+    }
+
+    override fun saveArticle(article: Article) {
+        articleDao.insertArticle(article)
+    }
+
+    override fun getSavedArticles(): List<Article> {
+        return articleDao.getSavedArticles()
     }
 
     override suspend fun getViewedArticles(): Response<ViewedArticlesResponse> {

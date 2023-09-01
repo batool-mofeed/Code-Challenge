@@ -42,7 +42,7 @@ class DashboardViewModel @Inject constructor(
                     _loading.value = resource.loading
                 }
                 is Resource.Success -> {
-                    val map = resource.data?.results?.map {
+                    val map = resource.data?.map {
                         val formatter =
                             java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                         val dateTime = LocalDateTime.parse(it.updated, formatter)

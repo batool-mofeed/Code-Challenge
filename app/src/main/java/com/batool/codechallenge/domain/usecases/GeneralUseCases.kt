@@ -1,5 +1,6 @@
 package com.batool.codechallenge.domain.usecases
 
+import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
 import com.batool.codechallenge.data.datasource.remote.responsemodel.ViewedArticlesResponse
 import com.batool.codechallenge.data.model.User
 import com.batool.codechallenge.domain.model.Resource
@@ -16,7 +17,7 @@ interface GeneralUseCases {
 
     fun getViewedArticles(
         scope: CoroutineScope,
-        resource: (Resource<ViewedArticlesResponse>) -> Unit
+        resource: (Resource<List<Article>>) -> Unit
     )
 
 }

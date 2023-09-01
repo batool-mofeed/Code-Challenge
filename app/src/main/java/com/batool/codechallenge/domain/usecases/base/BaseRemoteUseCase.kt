@@ -20,6 +20,7 @@ open class BaseRemoteUseCase {
         onLoading: (Boolean) -> Unit = {},
         onSuccess: (RESPONSE_TYPE) -> Unit = {},
         onError: (String) -> Unit = {},
+        onFailedToConnect :suspend () -> Unit = {},
     ) {
         scope.launch {
             onLoading(true)
@@ -31,9 +32,9 @@ open class BaseRemoteUseCase {
                         onSuccess(response.body()!!)
                     }
                     response.code() == 403 -> {
-//                        onError(
-//                            ErrorResponse(403, listOf(Error("Forbidden", "Forbidden")))
-//                        )
+                        onError(
+                            "Un Authorized error"
+                        )
                     }
                     response.code() == 401 -> {
                         onError(
@@ -43,23 +44,18 @@ open class BaseRemoteUseCase {
                     response.code() in 400..499 -> {
                         onError(response.message())
                     }
-                    response.code() == 500 -> {
-                        onError(
-                            "Un Authorized error"
-                        )
-                    }
                     response.code() in 500..550 -> {
                         onError(response.message())
                     }
                 }
             } catch (e: CancellationException) {
                 e.printStackTrace()
-//                onError(handleAnotherErrorTypes(e))
                 Timber.e("${e.message}")
+                onFailedToConnect()
             } catch (e: Exception) {
                 e.printStackTrace()
-                e.message?.let { onError(it) }
                 Timber.e("${e.message}")
+                onFailedToConnect()
             }
             onLoading(false)
         }

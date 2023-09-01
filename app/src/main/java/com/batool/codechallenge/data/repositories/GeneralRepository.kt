@@ -1,5 +1,6 @@
 package com.batool.codechallenge.data.repositories
 
+import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
 import com.batool.codechallenge.data.datasource.remote.responsemodel.ViewedArticlesResponse
 import com.batool.codechallenge.data.model.User
 import retrofit2.Response
@@ -13,7 +14,11 @@ interface GeneralRepository {
 
     fun saveUser(user: User)
 
-    fun getUser():User?
+    fun getUser(): User?
+
+    fun saveArticle(article: Article)
+
+    fun getSavedArticles(): List<Article>
 
     suspend fun getViewedArticles(): Response<ViewedArticlesResponse>
 

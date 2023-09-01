@@ -1,6 +1,10 @@
 package com.batool.codechallenge.data.datasource.remote.responsemodel
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.batool.codechallenge.data.datasource.local.room.Converters
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
@@ -19,12 +23,15 @@ data class ViewedArticlesResponse(
 
 @Parcelize
 @JsonClass(generateAdapter = true)
+@Entity(tableName = "articles")
 data class Article(
+    @PrimaryKey()
     val id: Long,
     val title: String? = "",
     val section: String? = "",
     val updated: String? = "",
     var calculatedDate: String? = null,
+    @TypeConverters(Converters::class)
     val media: List<Media>? = null
 ) : Parcelable
 
