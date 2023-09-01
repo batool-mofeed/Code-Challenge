@@ -2,6 +2,8 @@ package com.batool.codechallenge.app.ui.main.dashboard
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -43,7 +45,18 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         initSearchViews()
+        handleSwipeToRefresh()
         initClicks()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun handleSwipeToRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            Handler(Looper.getMainLooper()).postDelayed({
+                dashboardViewModel.getViewedArticles()
+                binding.swipeRefreshLayout.isRefreshing = false
+            }, 2000)
+        }
     }
 
     private fun initClicks() {
