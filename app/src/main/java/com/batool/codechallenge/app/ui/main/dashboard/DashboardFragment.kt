@@ -14,7 +14,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.batool.codechallenge.BR
 import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseFragment
-import com.batool.codechallenge.app.ui.main.dashboard.section.SectionPagerAdapter
+import com.batool.codechallenge.app.ui.main.dashboard.adapters.SectionPagerAdapter
+import com.batool.codechallenge.app.ui.main.dashboard.adapters.TabsAdapter
+import com.batool.codechallenge.app.ui.main.dashboard.communicators.SearchCommunicator
+import com.batool.codechallenge.app.ui.main.dashboard.communicators.SortCommunicator
 import com.batool.codechallenge.app.util.uiutil.CenterSmoothScroller
 import com.batool.codechallenge.app.util.uiutil.click
 import com.batool.codechallenge.app.util.uiutil.hideSoftKeyboard
@@ -113,44 +116,21 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
                 ): Boolean {
                     if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
                         hideSoftKeyboard(requireActivity())
-                        search()
+                        SearchCommunicator.postSearch(binding.searchEdt.text.toString())
                         return true
                     }
                     return false
                 }
             })
             searchEdt.addTextChangedListener(textWatcher {
-                if (it.isEmpty()) {
-                    getMainData()
-                    //TODO:Communicator to retrieve main data
-
-//                    binding.recyclerView.scrollTo(0, 0)
-                } else {
-                    //TODO:Communicator to search form pager
-                    search()
-                }
+                SearchCommunicator.postSearch(binding.searchEdt.text.toString())
             })
             clearSearchText.setOnClickListener {
-                getMainData()
+                SearchCommunicator.postSearch("")
                 searchEdt.setText("")
                 searchEdt.clearFocus()
             }
         }
-    }
-
-    private fun search() {
-//        articlesAdapter.clearItems()
-//        articlesAdapter.addItems(dashboardViewModel.articles.value?.filter {
-//            it.title?.lowercase(Locale("en"))?.contains(
-//                binding.searchEdt.text.toString()
-//                    .lowercase(Locale("en"))
-//            ) == true
-//        }!!)
-    }
-
-    private fun getMainData() {
-//        articlesAdapter.clearItems()
-//        dashboardViewModel.articles.value?.let { it1 -> articlesAdapter.addItems(it1) }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -1,4 +1,4 @@
-package com.batool.codechallenge.app.ui.main.dashboard
+package com.batool.codechallenge.app.ui.main.dashboard.communicators
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -18,8 +18,8 @@ object SortCommunicator {
 
     //observe
     fun observeSort(reloadNow: (Boolean) -> Unit) {
-        observer = Observer<Boolean> { list ->
-            reloadNow(list)
+        observer = Observer<Boolean> { it ->
+            reloadNow(it)
         }
         sort.observeForever(observer)
     }

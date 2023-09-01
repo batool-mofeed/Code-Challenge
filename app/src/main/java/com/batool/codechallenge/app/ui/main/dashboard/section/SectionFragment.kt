@@ -2,15 +2,18 @@ package com.batool.codechallenge.app.ui.main.dashboard.section
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.batool.codechallenge.BR
 import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseFragment
-import com.batool.codechallenge.app.ui.main.dashboard.ArticlesAdapter
-import com.batool.codechallenge.app.ui.main.dashboard.SortCommunicator
+import com.batool.codechallenge.app.ui.main.dashboard.adapters.ArticlesAdapter
+import com.batool.codechallenge.app.ui.main.dashboard.communicators.SearchCommunicator
+import com.batool.codechallenge.app.ui.main.dashboard.communicators.SortCommunicator
 import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
 import com.batool.codechallenge.databinding.FragmentSectionBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class SectionFragment : BaseFragment<FragmentSectionBinding>() {
@@ -27,6 +30,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
         super.onViewCreated(view, savedInstanceState)
         initArticlesRecyclerView()
         listenToSortCommunicator()
+        listenForSearchCommunicator()
         articleList =
             arguments?.getParcelableArrayList(ARTICLES) ?: emptyList()
         sectionViewModel.setArticles(articleList)
@@ -37,6 +41,30 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
             if (it) {
                 sectionViewModel.setArticles(emptyList())
                 sectionViewModel.setArticles(articleList.sortedByDescending { it.updated })
+            }
+        }
+    }
+
+    private fun listenForSearchCommunicator() {
+        SearchCommunicator.observeSearch { key ->
+            if (key != null) {
+                if (key.isNotEmpty()) {
+                    articleList.filter {
+                        it.title?.lowercase(Locale("en"))?.contains(
+                            key
+                                .lowercase(Locale("en"))
+                        ) == true
+                    }.let {
+                        articlesAdapter.clearItems()
+                        articlesAdapter.addItems(it)
+                        binding.noSearch.isVisible = it.isEmpty()
+                    }
+
+                } else {
+                    binding.noSearch.isVisible = false
+                    articlesAdapter.clearItems()
+                    articlesAdapter.addItems(articleList)
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.batool.codechallenge.app.ui.main.dashboard
+package com.batool.codechallenge.app.ui.main.dashboard.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

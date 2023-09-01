@@ -55,6 +55,7 @@
     <string name="hours">Hours</string>
     <string name="hour">Hour</string>
     <string name="ago">ago</string>
+    <string name="no_search_found">No matches search</string>
 
     <!--    fragment_more-->
     <string name="profile">My Profile</string>

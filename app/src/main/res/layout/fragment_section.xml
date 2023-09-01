@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -24,7 +25,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/no_categories"
+            android:id="@+id/no_articles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -33,6 +34,17 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
             android:visibility="@{viewModel.articles.isEmpty()?View.VISIBLE:View.GONE}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/no_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_16sdp"
+            android:text="@string/no_search_found"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            android:visibility="gone" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
