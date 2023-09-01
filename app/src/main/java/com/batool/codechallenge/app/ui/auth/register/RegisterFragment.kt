@@ -1,7 +1,10 @@
 package com.batool.codechallenge.app.ui.auth.register
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
+import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
@@ -29,6 +32,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         observeViewModel()
     }
 
+
     private fun observeViewModel() {
         with(registerViewModel) {
             createAccountSuccess.collectFlow {
@@ -49,6 +53,26 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 ) {
                     toast(R.string.age_validation_message)
                 }
+            }
+            showHidePassword.click {
+                if (registerViewModel.visiblePass.value == true) {
+                    passwordText.transformationMethod = PasswordTransformationMethod()
+                } else {
+                    passwordText.transformationMethod = null
+                }
+                registerViewModel.visiblePass.value =
+                    !registerViewModel.visiblePass.value!!
+                passwordText.setSelection(passwordText.length())
+            }
+            showHideConfirmPassword.click {
+                if (registerViewModel.visibleConfirmPass.value == true) {
+                    confirmPasswordText.transformationMethod = PasswordTransformationMethod()
+                } else {
+                    confirmPasswordText.transformationMethod = null
+                }
+                registerViewModel.visibleConfirmPass.value =
+                    !registerViewModel.visibleConfirmPass.value!!
+                confirmPasswordText.setSelection(confirmPasswordText.length())
             }
         }
     }

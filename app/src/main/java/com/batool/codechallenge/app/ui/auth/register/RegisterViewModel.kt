@@ -18,6 +18,8 @@ class RegisterViewModel @Inject constructor(
     private val generalUseCases: GeneralUseCases
 ) : BaseViewModel() {
 
+    val visiblePass = MutableLiveData(false)
+    val visibleConfirmPass = MutableLiveData(false)
     val createAccountSuccess = MutableStateFlow(false)
 
     val nameError = MutableLiveData("")
