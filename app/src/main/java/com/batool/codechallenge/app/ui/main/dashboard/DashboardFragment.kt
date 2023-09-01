@@ -16,6 +16,7 @@ import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseFragment
 import com.batool.codechallenge.app.ui.main.dashboard.section.SectionPagerAdapter
 import com.batool.codechallenge.app.util.uiutil.CenterSmoothScroller
+import com.batool.codechallenge.app.util.uiutil.click
 import com.batool.codechallenge.app.util.uiutil.hideSoftKeyboard
 import com.batool.codechallenge.app.util.uiutil.textWatcher
 import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
@@ -39,8 +40,16 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         initSearchViews()
+        initClicks()
     }
 
+    private fun initClicks() {
+        with(binding) {
+            sortLayout.click {
+                SortCommunicator.postSort(true)
+            }
+        }
+    }
 
     private fun observeViewModel() {
         with(dashboardViewModel) {
@@ -67,6 +76,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
         with(binding.viewPager) {
             val pageAdapter =
                 SectionPagerAdapter(childFragmentManager, lifecycle, pair.first.size, pair.second)
+            offscreenPageLimit = pair.first.size;
             this.adapter = pageAdapter
         }
     }

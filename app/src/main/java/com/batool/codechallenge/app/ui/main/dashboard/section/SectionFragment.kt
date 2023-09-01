@@ -7,6 +7,7 @@ import com.batool.codechallenge.BR
 import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseFragment
 import com.batool.codechallenge.app.ui.main.dashboard.ArticlesAdapter
+import com.batool.codechallenge.app.ui.main.dashboard.SortCommunicator
 import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
 import com.batool.codechallenge.databinding.FragmentSectionBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,13 +21,24 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
     override fun getViewModel() = sectionViewModel
 
     private lateinit var articlesAdapter: ArticlesAdapter
+    private var articleList: List<Article> = emptyList()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initArticlesRecyclerView()
-        val articleList =
-            arguments?.getParcelableArrayList<Article>(ARTICLES) ?: emptyList<Article>()
+        listenToSortCommunicator()
+        articleList =
+            arguments?.getParcelableArrayList(ARTICLES) ?: emptyList()
         sectionViewModel.setArticles(articleList)
+    }
+
+    private fun listenToSortCommunicator() {
+        SortCommunicator.observeSort {
+            if (it) {
+                sectionViewModel.setArticles(emptyList())
+                sectionViewModel.setArticles(articleList.sortedByDescending { it.updated })
+            }
+        }
     }
 
     private fun initArticlesRecyclerView() {
