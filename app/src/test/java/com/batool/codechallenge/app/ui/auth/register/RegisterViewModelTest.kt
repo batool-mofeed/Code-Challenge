@@ -2,6 +2,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.batool.codechallenge.app.ui.auth.register.RegisterViewModel
 import com.batool.codechallenge.app.util.isValidEmail
+import com.batool.codechallenge.app.util.md5
 import com.batool.codechallenge.app.util.resource.ResourceProvider
 import com.batool.codechallenge.app.util.validatePhoneNumber
 import com.batool.codechallenge.data.model.User
@@ -59,7 +60,9 @@ class RegisterViewModelTest {
             "Batool",
             "Batool@gmail.com",
             "1234567890",
-            "01/01/1990"
+            "01/01/1990",
+            md5(viewModel.password.value.toString()),
+            true
         )
 
         // Act
