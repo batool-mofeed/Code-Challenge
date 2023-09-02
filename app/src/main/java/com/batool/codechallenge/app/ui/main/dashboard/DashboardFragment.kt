@@ -27,6 +27,7 @@ import com.batool.codechallenge.app.util.uiutil.textWatcher
 import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
 import com.batool.codechallenge.databinding.FragmentDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.*
 
 @AndroidEntryPoint
@@ -54,7 +55,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             Handler(Looper.getMainLooper()).postDelayed({
                 dashboardViewModel.getViewedArticles()
-                binding.swipeRefreshLayout.isRefreshing = false
+                try {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }catch (e:java.lang.Exception){
+                    Timber.e("Fragment is not invisible")
+                }
             }, 2000)
         }
     }

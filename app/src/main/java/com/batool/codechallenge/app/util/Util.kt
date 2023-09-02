@@ -5,14 +5,21 @@ import android.util.Patterns
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 
 /**
- * Created By Batool Mofeed - Vibes Solutions on 8/29/2023.
+ * Created By Batool Mofeed on 8/29/2023.
  **/
-fun String.isValidEmail() =
-    this.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+fun String?.isValidEmail(): Boolean {
+    if (this.isNullOrEmpty() || this == null) {
+        return false
+    }
+    return this.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+}
 
-fun Context.validatePhoneNumber(phoneNumber: String) = try {
+fun Context?.validatePhoneNumber(phoneNumber: String?) = try {
+    if (phoneNumber.isNullOrEmpty() || this == null) {
+        false
+    }
     val phoneUtil = PhoneNumberUtil.createInstance(this)
-    if (phoneNumber.startsWith("0")) {
+    if (phoneNumber?.startsWith("0") == true) {
         phoneNumber.drop(1)
     }
     val phNumberProto = phoneUtil.parse("+962$phoneNumber", null)

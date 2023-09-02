@@ -1,10 +1,8 @@
 package com.batool.codechallenge.app.ui.auth.register
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels

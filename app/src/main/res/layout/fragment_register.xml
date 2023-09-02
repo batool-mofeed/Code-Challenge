@@ -169,7 +169,6 @@
                         android:text="@={viewModel.phone}"
                         android:textAlignment="viewStart"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_10ssp"
                         tools:ignore="RtlCompat" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -201,10 +200,11 @@
                     android:inputType="date"
                     android:lines="1"
                     android:maxLines="1"
-                    android:padding="@dimen/_6sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:gravity="center_vertical"
                     android:text="@={viewModel.dob}"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="@dimen/_15ssp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"

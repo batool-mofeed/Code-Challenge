@@ -13,6 +13,7 @@ import com.batool.codechallenge.app.ui.main.dashboard.communicators.SortCommunic
 import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
 import com.batool.codechallenge.databinding.FragmentSectionBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.*
 
 @AndroidEntryPoint
@@ -46,6 +47,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
     }
 
     private fun listenForSearchCommunicator() {
+
         SearchCommunicator.observeSearch { key ->
             if (key != null) {
                 if (key.isNotEmpty()) {
@@ -57,11 +59,18 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
                     }.let {
                         articlesAdapter.clearItems()
                         articlesAdapter.addItems(it)
-                        binding.noSearch.isVisible = it.isEmpty()
+                        try {
+                            binding.noSearch.isVisible = it.isEmpty()
+                        } catch (e: NullPointerException) {
+                            Timber.e("Not visible fragment")
+                        }
                     }
-
                 } else {
-                    binding.noSearch.isVisible = false
+                    try {
+                        binding.noSearch.isVisible = false
+                    } catch (e: NullPointerException) {
+                        Timber.e("Not visible fragment")
+                    }
                     articlesAdapter.clearItems()
                     articlesAdapter.addItems(articleList)
                 }
