@@ -5,6 +5,7 @@ import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseViewModel
 import com.batool.codechallenge.app.util.isPhoneNumberMatchCountryCode
 import com.batool.codechallenge.app.util.isValidEmail
+import com.batool.codechallenge.app.util.md5
 import com.batool.codechallenge.app.util.uiutil.isValidPassword
 import com.batool.codechallenge.app.util.validatePhoneNumber
 import com.batool.codechallenge.data.model.User
@@ -64,51 +65,72 @@ class RegisterViewModel @Inject constructor(
     private fun validateFields(): Boolean {
 
         invalidateErrors()
+        var invalidFields = false
 
         if (name.value.isNullOrEmpty()) {
             nameError.value = resourceProvider.provideString(R.string.name_required)
-            return false
-        } else if (id.value.isNullOrEmpty()) {
-            idError.value = resourceProvider.provideString(R.string.id_required)
-            return false
-        } else if (email.value.isNullOrEmpty()) {
-            emailError.value = resourceProvider.provideString(R.string.email_required)
-            return false
-        } else if (!email.value?.isValidEmail()!!) {
-            emailError.value = resourceProvider.provideString(R.string.email_invalid)
-            return false
-        } else if (phone.value.isNullOrEmpty()) {
-            phoneError.value = resourceProvider.provideString(R.string.phone_required)
-            return false
-        } else if (!resourceProvider.provideAppContext().validatePhoneNumber(phone.value!!)) {
-            phoneError.value = resourceProvider.provideString(R.string.phone_invalid)
-            return false
-        } else if (!resourceProvider.provideAppContext().isPhoneNumberMatchCountryCode(
-                ccp.value,
-                (if (phone.value!!.startsWith("0")) phone.value!!.drop(1) else phone.value).toString()
-            )
-        ) {
-            phoneError.value = resourceProvider.provideString(R.string.phone_invalid)
-            return false
-        } else if (dob.value.isNullOrEmpty()) {
-            dobError.value = resourceProvider.provideString(R.string.dob_required)
-            return false
-        } else if (password.value.isNullOrEmpty()) {
-            passwordError.value = resourceProvider.provideString(R.string.password_required)
-            return false
-        } else if (confirmPassword.value.isNullOrEmpty()) {
-            confirmPasswordError.value = resourceProvider.provideString(R.string.password_required)
-            return false
-        } else if (password.value != confirmPassword.value) {
-            passwordError.value = resourceProvider.provideString(R.string.password_not_match)
-            confirmPasswordError.value = resourceProvider.provideString(R.string.password_not_match)
-            return false
-        } else if (!isValidPassword(password.value)) {
-            passwordError.value = resourceProvider.provideString(R.string.weak_password)
-            confirmPasswordError.value = resourceProvider.provideString(R.string.weak_password)
-            return false
+            invalidFields = true
         }
-        return true
+        if (id.value.isNullOrEmpty()) {
+            idError.value = resourceProvider.provideString(R.string.id_required)
+            invalidFields = true
+        }
+        if (email.value.isNullOrEmpty()) {
+            emailError.value = resourceProvider.provideString(R.string.email_required)
+            invalidFields = true
+        } else {
+            if (!email.value?.isValidEmail()!!) {
+                emailError.value = resourceProvider.provideString(R.string.email_invalid)
+                invalidFields = true
+            }
+        }
+
+        if (phone.value.isNullOrEmpty()) {
+            phoneError.value = resourceProvider.provideString(R.string.phone_required)
+            invalidFields = true
+        } else {
+            if (!resourceProvider.provideAppContext().validatePhoneNumber(phone.value!!)) {
+                phoneError.value = resourceProvider.provideString(R.string.phone_invalid)
+                invalidFields = true
+            }
+            if (!resourceProvider.provideAppContext().isPhoneNumberMatchCountryCode(
+                    ccp.value,
+                    (if (phone.value!!.startsWith("0")) phone.value!!.drop(1) else phone.value).toString()
+                )
+            ) {
+                phoneError.value = resourceProvider.provideString(R.string.phone_invalid)
+                invalidFields = true
+            }
+        }
+
+        if (dob.value.isNullOrEmpty()) {
+            dobError.value = resourceProvider.provideString(R.string.dob_required)
+            invalidFields = true
+        }
+        if (password.value.isNullOrEmpty()) {
+            passwordError.value = resourceProvider.provideString(R.string.password_required)
+            invalidFields = true
+        } else {
+            if (password.value != confirmPassword.value) {
+                passwordError.value = resourceProvider.provideString(R.string.password_not_match)
+                confirmPasswordError.value =
+                    resourceProvider.provideString(R.string.password_not_match)
+                invalidFields = true
+            } else {
+                if (!isValidPassword(password.value)) {
+                    passwordError.value = resourceProvider.provideString(R.string.weak_password)
+                    confirmPasswordError.value =
+                        resourceProvider.provideString(R.string.weak_password)
+                    invalidFields = true
+                }
+            }
+        }
+        if (confirmPassword.value.isNullOrEmpty()) {
+            confirmPasswordError.value = resourceProvider.provideString(R.string.password_required)
+            invalidFields = true
+        }
+
+        return !invalidFields
     }
 
     fun createAccount() {
@@ -119,7 +141,10 @@ class RegisterViewModel @Inject constructor(
                     name.value.toString(),
                     email.value.toString(),
                     phone.value.toString(),
-                    dob.value.toString()
+                    dob.value.toString(),
+                    //encrypt password before storing locally
+                    md5(password.value.toString()),
+                    true
                 )
             )
             createAccountSuccess.value = true

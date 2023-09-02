@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import com.batool.codechallenge.BR
 import com.batool.codechallenge.R
 import com.batool.codechallenge.app.base.BaseFragment
+import com.batool.codechallenge.app.ui.main.MainActivity
 import com.batool.codechallenge.app.util.uiutil.click
 import com.batool.codechallenge.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +22,23 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initPasswordField()
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        with(loginViewModel){
+            errorMessage.collectFlow {
+                if(it!= null && it.isNotEmpty()){
+                    toast(it)
+                }
+            }
+            loggedIn.collectFlow {
+                if(it!= null && it){
+                    startActivity(MainActivity.getIntent(requireActivity()))
+                    toast(R.string.logged_in_successfully)
+                }
+            }
+        }
     }
 
     private fun initPasswordField() {

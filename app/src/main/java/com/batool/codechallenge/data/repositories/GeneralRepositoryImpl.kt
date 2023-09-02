@@ -27,7 +27,7 @@ class GeneralRepositoryImpl @Inject constructor(
       return preferences.getLanguage()
     }
 
-    override fun isThereUser() = preferences.getUser() != null
+    override fun isThereUser() = preferences.getUser() != null && preferences.getUser()?.isLoggedIn == true
 
     override fun saveUser(user: User) {
         preferences.setUser(user)

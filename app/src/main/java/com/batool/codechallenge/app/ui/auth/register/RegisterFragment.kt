@@ -36,6 +36,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             createAccountSuccess.collectFlow {
                 if (it) {
                     startActivity(MainActivity.getIntent(requireActivity()))
+                    toast(R.string.registered_successfully)
                 }
             }
         }

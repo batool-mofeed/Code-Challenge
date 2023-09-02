@@ -30,8 +30,11 @@
     <string name="password_not_match">كلمتا المرور غير متطابقتين</string>
     <string name="age_validation_message">سياسة الخصوصية تمنع أي شخص دون سن 18 من التسجيل في التطبيق.</string>
     <string name="weak_password">كلمة مرور ضعيفة! يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورقم واحد ورمز واحد وعلى الأقل 8 أحرف.</string>
+    <string name="registered_successfully">لقد تم تسجيل حسابك بنجاح</string>
 
-    <!-- fragment_login -->
+    <!--    fragment_login-->
+    <string name="invalid_credentials">معلومات الحساب غير صحيحة</string>
+    <string name="logged_in_successfully">تم تسجيل الدخول بنجاح</string>
 
     <!-- activity_main -->
     <string name="dashboard_label">لوحة القيادة</string>

@@ -30,9 +30,13 @@ class PreferencesManagerImpl @Inject constructor(
     }
 
     override fun logoutUser(succeeded: () -> Unit) {
-        val language = getLanguage()
-        MiHawk.deleteAll {}
-        setLanguage(language)
+        if (getUser() != null) {
+            val user = getUser()
+            user?.isLoggedIn = false
+            if (user != null) {
+                setUser(user)
+            }
+        }
         succeeded()
     }
 }

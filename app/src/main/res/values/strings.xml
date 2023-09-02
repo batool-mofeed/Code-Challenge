@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Code Challenge</string>
+    <string name="app_name">Deloitte - Code Challenge</string>
 
     <!--    dialog_progress-->
     <string name="please_wait_label">Please wait…</string>
@@ -10,29 +10,31 @@
     <string name="login_label">Login</string>
 
     <!--    fragment_register-->
-    <string name="create_account_label">Create Account</string>
+    <string name="create_account_label">Register your Account</string>
     <string name="full_name">Full name</string>
     <string name="id_label">National ID</string>
-    <string name="email_label">Email</string>
+    <string name="email_label">Email Address</string>
     <string name="phone_number_label">Phone Number</string>
     <string name="dob_label">Date of Birth</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
 
-    <string name="name_required">Name required</string>
-    <string name="id_required">National ID required</string>
-    <string name="email_invalid">Invalid email</string>
-    <string name="email_required">Email required</string>
-    <string name="phone_invalid">Invalid Phone</string>
-    <string name="phone_required">Phone required</string>
-    <string name="dob_required">Date of birth required</string>
-    <string name="password_required">Password required</string>
-    <string name="password_not_match">Passwords are not match</string>
+    <string name="name_required">The name is required</string>
+    <string name="id_required">The national ID is required</string>
+    <string name="email_invalid">Invalid email address format</string>
+    <string name="email_required">The Email field is required</string>
+    <string name="phone_invalid">Invalid Phone number format</string>
+    <string name="phone_required">The Phone number field is required</string>
+    <string name="dob_required">The Date of birth field is required</string>
+    <string name="password_required">The Password field is required</string>
+    <string name="password_not_match">The Passwords fields are not match</string>
     <string name="age_validation_message">Privacy policy prohibits anybody under 18 from registering for the app.</string>
-    <string name="weak_password">Weak password! The password field must contain at least one capital letter, one number, one symbol and at least 8 characters.</string>
+    <string name="weak_password">Weak password!\n The password field must contain at least one capital letter, one number, one symbol and at least 8 characters.</string>
+    <string name="registered_successfully">You have been registered successfully</string>
 
     <!--    fragment_login-->
-
+    <string name="invalid_credentials">Invalid credentials</string>
+    <string name="logged_in_successfully">You have been logged in successfully</string>
 
     <!--    activity_main-->
     <string name="dashboard_label">Dashboard</string>

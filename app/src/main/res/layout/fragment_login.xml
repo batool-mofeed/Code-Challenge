@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -18,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:background="@drawable/bg_input_fields"
             android:hint="@string/email_label"
@@ -27,7 +30,20 @@
             android:lines="1"
             android:maxLines="1"
             android:padding="@dimen/_6sdp"
+            android:text="@={viewModel.email}"
             android:textColor="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:maxLines="1"
+            android:text="@{viewModel.emailError}"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_10ssp"
+            android:visibility="@{viewModel.emailError.isEmpty()? View.GONE:View.VISIBLE}"
+            tools:text="sssssssss" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/password_layout"
@@ -81,6 +97,17 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@{viewModel.passwordError}"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_10ssp"
+            android:visibility="@{viewModel.passwordError.isEmpty()? View.GONE:View.VISIBLE}"
+            tools:text="sssssssss" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/create_account_btn"
             android:layout_width="180dp"
@@ -90,6 +117,7 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_35sdp"
             android:background="@drawable/bg_input_fields"
+            android:onClick="@{(v)->viewModel.loginClicked()}"
             android:paddingStart="@dimen/_8sdp"
             android:paddingEnd="@dimen/_8sdp"
             android:text="@string/login_label"

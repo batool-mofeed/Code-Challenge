@@ -3,6 +3,8 @@ package com.batool.codechallenge.app.util
 import android.content.Context
 import android.util.Patterns
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
+import java.math.BigInteger
+import java.security.MessageDigest
 
 /**
  * Created By Batool Mofeed on 8/29/2023.
@@ -39,4 +41,9 @@ fun Context.isPhoneNumberMatchCountryCode(countryCode: String, phoneNumber: Stri
 } catch (e: Exception) {
     e.printStackTrace()
     false
+}
+
+fun md5(input: String): String {
+    val md = MessageDigest.getInstance("MD5")
+    return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
 }

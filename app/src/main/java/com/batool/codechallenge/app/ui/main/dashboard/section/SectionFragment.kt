@@ -14,6 +14,8 @@ import com.batool.codechallenge.data.datasource.remote.responsemodel.Article
 import com.batool.codechallenge.databinding.FragmentSectionBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.math.BigInteger
+import java.security.MessageDigest
 import java.util.*
 
 @AndroidEntryPoint
@@ -90,6 +92,7 @@ class SectionFragment : BaseFragment<FragmentSectionBinding>() {
         private const val ARTICLES = "ARTICLES"
         fun newInstance(
             articles: List<Article>
+
         ) = SectionFragment().apply {
             arguments = Bundle().apply {
                 putParcelableArrayList(ARTICLES, articles as ArrayList)
